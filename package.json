@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && rm -rf ~/Documents/spring/spotify_parse_back_end/src/main/resources/static/* && cp -r build/* ~/Documents/spring/spotify_parse_back_end/src/main/resources/static",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
