@@ -1,19 +1,35 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 function Blog() {
-    const [content, setContent] = useState("Loading...");
+    const [previews, setPreviews] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/blog")
-            .then(response => response.text())
-            .then(data => setContent(data))
-            .catch(error => console.error("Error fetching blog content:", error));
+        fetchPreviews();
     }, []);
+
+    const fetchPreviews = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/api/files/previews");
+            const data = await response.json();
+            setPreviews(data);
+        } catch (error) {
+            console.error("Error fetching file previews:", error);
+        }
+    };
 
     return (
         <div>
-            <h1>Blog Page</h1>
-            <p>{content}</p>
+            <h1>Blog</h1>
+            <h2>File Previews</h2>
+            <ul>
+                {previews.length === 0 ? (
+                    <p>No files uploaded yet.</p>
+                ) : (
+                    previews.map((preview, index) => (
+                        <li key={index}>{preview}</li>
+                    ))
+                )}
+            </ul>
         </div>
     );
 }
