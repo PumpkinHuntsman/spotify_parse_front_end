@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 function Blog() {
     const [previews, setPreviews] = useState([]);
     const [blogContent, setBlogContent] = useState("");
+    const [top10Content, setTop10Content] = useState("");
 
     useEffect(() => {
         fetchPreviews();
         fetchBlogContent();
+        fetchTop10Content();
     }, []);
 
     const fetchPreviews = async () => {
@@ -28,6 +30,16 @@ function Blog() {
             console.error("Error fetching blog content:", error);
         }
     };
+
+    const fetchTop10Content = async () => {
+        try{
+            const response = await fetch("http://localhost:8080/api/blog/top10");
+            const data = await response.text();
+            setTop10Content(data);
+        } catch (error) {
+            console.error("Error fetching top 10 songs:", error);
+        }
+    }
 
     return (
         <div>
@@ -54,6 +66,8 @@ function Blog() {
                     ))
                 )}
             </ul>
+            <h2>Top 10 Songs</h2>
+            <p>{top10Content || "No Top Songs Yet, please upload a file"}</p>
         </div>
     );
 }
