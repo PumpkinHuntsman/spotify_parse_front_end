@@ -34,13 +34,18 @@ function FileUpload() {
                 body: formData,
             });
 
+            let responseText = await response.text()
+            responseText = responseText.replace("java.lang.Exception: ", "")
+
             if (response.ok) {
                 alert("File uploaded successfully!");
-                fetchFiles(); // Refresh file list
+                await fetchFiles(); // Refresh file list
             } else {
-                alert("File upload failed.");
+                alert("File uploaded successfully, but it isn't the right type.\n" + responseText);
+                await fetchFiles(); // Refresh file list
             }
         } catch (error) {
+            alert("File Upload Failed - Too Large?")
             console.error("Upload error:", error);
         }
     };
