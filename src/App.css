@@ -131,3 +131,12 @@ body {
 .carousel-arrow:hover {
   opacity: 1; /* Full opacity when hovered */
 }
+
+a {
+  color: #4CAF50;  /* This is a shade of green */
+  text-decoration: none;  /* Optional: removes underline */
+}
+
+a:hover {
+  color: #45a049;  /* Darker green on hover */
+}

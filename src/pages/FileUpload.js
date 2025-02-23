@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 function FileUpload() {
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFiles, setSelectedFiles] = useState([]);
     const [files, setFiles] = useState([]);
 
     useEffect(() => {
@@ -19,14 +19,17 @@ function FileUpload() {
     };
 
     const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
+        setSelectedFiles(event.target.files); // store multiple files
     };
 
     const handleUpload = async () => {
-        if (!selectedFile) return;
+        if (selectedFiles.length === 0) return;
 
         const formData = new FormData();
-        formData.append("file", selectedFile);
+        // Append all selected files to formData
+        Array.from(selectedFiles).forEach((file) => {
+            formData.append("files", file);
+        });
 
         try {
             const response = await fetch("http://localhost:8080/api/files/upload", {
@@ -34,18 +37,18 @@ function FileUpload() {
                 body: formData,
             });
 
-            let responseText = await response.text()
-            responseText = responseText.replace("java.lang.Exception: ", "")
+            let responseText = await response.text();
+            responseText = responseText.replace("java.lang.Exception: ", "");
 
             if (response.ok) {
-                alert("File uploaded successfully!");
+                alert("Files uploaded successfully!\n" + responseText);
                 await fetchFiles(); // Refresh file list
             } else {
-                alert("File uploaded successfully, but it isn't the right type.\n" + responseText);
+                alert("Files uploaded, but some are of incorrect type.\n" + responseText);
                 await fetchFiles(); // Refresh file list
             }
         } catch (error) {
-            alert("File Upload Failed - Too Large?")
+            alert("File Upload Failed - Too Large?");
             console.error("Upload error:", error);
         }
     };
@@ -53,7 +56,11 @@ function FileUpload() {
     return (
         <div>
             <h1>File Upload</h1>
-            <input type="file" onChange={handleFileChange} />
+            <input
+                type="file"
+                onChange={handleFileChange}
+                multiple // Allow selecting multiple files
+            />
             <button onClick={handleUpload}>Upload</button>
 
             <h2>Uploaded Files</h2>
