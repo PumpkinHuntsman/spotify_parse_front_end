@@ -13,15 +13,39 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  background-color: #444;  /* Set background color for the entire page */
+  color: white;  /* Set text color to white for contrast against the dark background */
+  font-family: Arial, sans-serif; /* Optional: set a clean font for the app */
+  margin: 0;
+  padding: 0;
+}
+
+/* Fixed Header Styling */
+.app-header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  background-color: #333;
   color: white;
+  padding: 10px 20px;
+  position: fixed;  /* Makes sure it stays at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.app-title {
+  padding-top: 15px;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 36px;
+  cursor: pointer;
 }
 
 .App-link {
@@ -35,4 +59,75 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.app-body {
+  margin-top: 80px;  /* Creates space below the header */
+  padding: 20px;
+}
+
+/* Optional: Style for page titles in the body */
+.app-body h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Styling for the preview carousel */
+.preview-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.preview-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+  height: 200px;
+  background-color: #444;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid #fff; /* White border around the box */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Shadow effect */
+  transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow on hover */
+  position: relative; /* So the arrows can be positioned absolutely */
+  z-index: 1;
+}
+
+/* Arrows inside the preview box */
+.carousel-arrow {
+  background-color: transparent; /* Clear background */
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  opacity: 0.7; /* Slight opacity for the arrows */
+  transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+}
+
+.carousel-arrow.left {
+  left: 10px;
+}
+
+.carousel-arrow.right {
+  right: 10px;
+}
+
+/* Optional: Shadow effect on hover */
+.preview-box:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Increase shadow on hover */
+}
+
+/* Arrow hover effect */
+.carousel-arrow:hover {
+  opacity: 1; /* Full opacity when hovered */
 }

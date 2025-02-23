@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 function Blog() {
     const [previews, setPreviews] = useState([]);
+    const [currentPreviewIndex, setCurrentPreviewIndex] = useState(0); // Track the current preview index
     const [blogContent, setBlogContent] = useState("");
     const [top10Content, setTop10Content] = useState("");
 
@@ -32,14 +33,26 @@ function Blog() {
     };
 
     const fetchTop10Content = async () => {
-        try{
+        try {
             const response = await fetch("http://localhost:8080/api/blog/top10");
             const data = await response.text();
             setTop10Content(data);
         } catch (error) {
             console.error("Error fetching top 10 songs:", error);
         }
-    }
+    };
+
+    const goToPreviousPreview = () => {
+        setCurrentPreviewIndex((prevIndex) =>
+            prevIndex === 0 ? previews.length - 1 : prevIndex - 1
+        );
+    };
+
+    const goToNextPreview = () => {
+        setCurrentPreviewIndex((prevIndex) =>
+            prevIndex === previews.length - 1 ? 0 : prevIndex + 1
+        );
+    };
 
     return (
         <div>
@@ -57,15 +70,18 @@ function Blog() {
                 "quis. Sed condimentum massa et suscipit condimentum. Etiam id tristique velit. "}</p>
 
             <h2>File Previews</h2>
-            <ul>
-                {previews.length === 0 ? (
-                    <p>No files uploaded yet.</p>
-                ) : (
-                    previews.map((preview, index) => (
-                        <li key={index}>{preview}</li>
-                    ))
-                )}
-            </ul>
+            {previews.length === 0 ? (
+                <p>No files uploaded yet.</p>
+            ) : (
+                <div className="preview-carousel">
+                    <div className="preview-box">
+                        <button className="carousel-arrow left" onClick={goToPreviousPreview}>←</button>
+                        <p>{previews[currentPreviewIndex]}</p>
+                        <button className="carousel-arrow right" onClick={goToNextPreview}>→</button>
+                    </div>
+                </div>
+            )}
+
             <h2>Top 10 Songs</h2>
             <p>{top10Content || "No Top Songs Yet, please upload a file"}</p>
         </div>

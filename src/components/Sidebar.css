@@ -1,0 +1,95 @@
+/* Sidebar.css */
+.sidebar {
+    position: fixed;
+    top: 80px;
+    left: -250px; /* Hidden by default */
+    width: 250px;
+    height: 100%;
+    background: #333;
+    color: white;
+    padding-top: 60px;
+    transition: 0.3s;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.sidebar.open {
+    left: 0; /* Slide in when open */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background: #555;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Menu button */
+.menu-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+}
+.sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #333;
+    transition: left 0.3s ease;
+    z-index: 9999; /* Ensures it's always on top */
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.menu-button {
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10000; /* Ensure button is above the content */
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
